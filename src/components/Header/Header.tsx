@@ -39,9 +39,9 @@ function Header() {
           </button>
 
           <div
-            className={` ${
-              isOpen ? "w-full h-full" : " hidden w-0 h-0"
-            } transition-transform duration-300`}
+            className={`top-0 right-0 fixed w-full h-full transition-transform duration-700 ease-in-out ${
+              isOpen ? "translate-x-0" : "translate-x-full"
+            }`}
           >
             <div className="fixed top-4  right-4 z-20 ">
               <button className="" onClick={() => open(!isOpen)}>
