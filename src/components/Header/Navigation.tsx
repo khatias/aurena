@@ -1,30 +1,25 @@
 import React from "react";
 import Link from "next/link";
+
 function Navigation() {
   return (
-    <nav className="bg-[#172a3e]  text-white fixed top-0 left-0 w-full h-full z-10 flex items-center justify-center">
-      <ul className="flex flex-col gap-2 text-center text-lg font-semibold p-4 ">
-        <li>
-          <Link href="/" className="hover:underline">
-            earings
-          </Link>
-        </li>
-        <li>
-          <Link href="/" className="hover:underline">
-            rings
-          </Link>
-        </li>
-        <li>
-          <Link href="/" className="hover:underline">
-            bracelets
-          </Link>
-        </li>
-
-        <li>
-          <Link href="/" className="hover:underline">
-            necklaces
-          </Link>
-        </li>
+    <nav className="bg-[#172a3e] text-white uppercase w-full h-full z-10 flex items-center justify-center">
+      <ul className="flex flex-col gap-4 text-center text-xl font-medium p-8 tracking-wider">
+        {[
+          { href: "/", label: "Earrings" },
+          { href: "/", label: "Rings" },
+          { href: "/", label: "Bracelets" },
+          { href: "/", label: "Necklaces" },
+        ].map(({ href, label }) => (
+          <li key={label}>
+            <Link
+              href={href}
+              className="transition-all duration-300 hover:text-[#f3d9b2] focus:text-[#f3d9b2] focus:outline-none"
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

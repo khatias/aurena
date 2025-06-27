@@ -7,6 +7,7 @@ import Banner from "../Banner/Banner";
 import { FiShoppingCart, FiUser, FiMenu } from "react-icons/fi";
 import { TfiClose } from "react-icons/tfi";
 import { useState } from "react";
+
 import Link from "next/link";
 function Header() {
   const [isOpen, open] = useState(false);
@@ -39,9 +40,10 @@ function Header() {
           </button>
 
           <div
-            className={`top-0 right-0 fixed w-full h-full transition-transform duration-700 ease-in-out ${
+            className={`top-0 right-0 fixed w-full h-full transition-transform duration-500 ease-linear ${
               isOpen ? "translate-x-0" : "translate-x-full"
             }`}
+            onClick={() => open(false)}
           >
             <div className="fixed top-4  right-4 z-20 ">
               <button className="" onClick={() => open(!isOpen)}>
