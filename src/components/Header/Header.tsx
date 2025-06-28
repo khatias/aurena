@@ -19,7 +19,7 @@ import Link from "next/link";
 function Header() {
   const [isOpen, open] = useState(false);
   return (
-    <header className="shadow-sm md:shadow-none bg-white fixed top-0 left-0 w-full z-50">
+    <header className="shadow-sm md:shadow-none bg-white  w-full z-50">
       <div>
         <Banner />
       </div>
