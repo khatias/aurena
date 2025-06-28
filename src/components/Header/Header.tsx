@@ -24,7 +24,7 @@ function Header() {
         <Banner />
       </div>
 
-      <div className="flex justify-between items-center px-4 py-2  container mx-auto">
+      <div className="flex justify-between items-center px-4 py-2 md:pb-4 container mx-auto">
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-2  bg-gray-50 rounded-3xl px-3 py-2  focus-within:ring-2 focus-within:ring-[#f3d9b2] transition">
             <FiSearch className="text-gray-500 text-lg" />

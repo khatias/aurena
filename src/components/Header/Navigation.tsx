@@ -4,10 +4,10 @@ import Link from "next/link";
 function Navigation() {
   return (
 <nav className="bg-[#172a3e] text-white uppercase w-full h-full z-10 flex items-center justify-center
-                md:bg-white md:text-primaryBlue md:justify-center border-y-1  border-primaryBlue">
+                md:bg-white md:text-primaryBlue md:justify-center border-y-[0.5px]  border-primaryBlue">
   <ul className="flex flex-col gap-4 text-center text-xl font-medium p-8 tracking-wider
-                 md:flex-row md:gap-4 md:text-sm md:uppercase md:p-3
-                 lg:gap-6 lg:text-sm lg:p-4"> 
+                 md:flex-row md:gap-6 md:text-sm md:uppercase md:p-3
+                 lg:gap-10 lg:text-sm lg:p-4"> 
     {[
       { href: "/", label: "Earrings" },
       { href: "/", label: "Rings" },
