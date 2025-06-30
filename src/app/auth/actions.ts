@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 import { createClient } from "../../../utils/supabse/server";
 
@@ -35,40 +34,53 @@ export async function login(formData: FormData) {
   }
   // Revalidate the root path to ensure the session is updated
   revalidatePath("/", "layout");
-  // Redirect to the home page after successful login 
+  // Redirect to the home page after successful login
   return { success: true };
 }
 
 export async function signup(formData: FormData) {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
+  const { data: existingUser } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", formData.get("email")) // the email to check if it exists
+    .single();
+
+  // throw an error if a record is found.
+  if (existingUser) {
+    return {
+      success: false,
+      error:
+        "This email is already registered. Please login or reset your password.",
+    };
+  }
   const email = formData.get("email");
   const password = formData.get("password");
-
-  // 1) Validate presence
-  if (
-    typeof email !== "string" ||
-    typeof password !== "string" ||
-    !email ||
-    !password
-  ) {
-    return { success: false, error: "Please enter both email and password." };
+  if (typeof email !== "string" || typeof password !== "string") {
+    return { success: false, error: "Invalid form data. Please try again." };
   }
 
-  // 2) Validate email format (simple but effective)
+  if (typeof email !== "string" || typeof password !== "string") {
+    return { success: false, error: "Invalid form data. Please try again." };
+  }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     return { success: false, error: "Please enter a valid email address." };
   }
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) {
-    redirect("/error");
+  if (password.length < 6) {
+    return { success: false, error: "Password must be at least 6 characters." };
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  const { error } = await supabase.auth.signUp({ email, password });
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  // No error: signup went through OR confirmation was resent
+  return {
+    success: true,
+    message: "Check your email for a confirmation link.",
+  };
 }
