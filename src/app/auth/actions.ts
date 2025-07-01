@@ -140,3 +140,43 @@ export async function signup(formData: FormData) {
     message: "Check your email for a confirmation link.",
   };
 }
+export async function resetPassword(formData: FormData) {
+  const supabase = await createClient();
+  const email = formData.get("email");
+  if (typeof email !== "string" || !email) {
+    return { success: false, error: "Please enter a valid email." };
+  }
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/reset-password`,
+  });
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
+}
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+  const password = formData.get("password");
+  const confirmPassword = formData.get("confirmPassword");
+
+  if (typeof password !== "string" || typeof confirmPassword !== "string") {
+    return { success: false, error: "Invalid form data. Please try again." };
+  }
+
+  if (password !== confirmPassword) {
+    return { success: false, error: "Passwords do not match." };
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password,
+  });
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  return { success: true, message: "Your password has been updated." };
+}

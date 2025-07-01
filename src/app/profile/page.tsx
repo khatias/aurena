@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '../../../utils/supabse/server'
 
-export default async function PrivatePage() {
+export default async function ProfilePage() {
   const supabase = await createClient()
 
   const { data, error } = await supabase.auth.getUser()
